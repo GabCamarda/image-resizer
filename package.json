@@ -1,0 +1,16 @@
+{
+  "name": "ub_codingtest",
+  "version": "1.0.0",
+  "description": "Web service to resize images on demand. Uses Node.js v6 LTS, Express and Redis for cache",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha test/*.js"
+  },
+  "author": "Gabriele Camarda <gabrycamarda@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "express": "4.15.2",
+    "redis": "2.7.1",
+    "sharp": "0.17.3"
+  }
+}
