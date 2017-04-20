@@ -7,6 +7,7 @@ const ImageResizer = require('./resizer');
 
 const logger = new Logger(config);
 const imageResizer = new ImageResizer(config, logger);
-const server = new Server(config, logger, imageResizer);
+const db = new Db(config, logger);
+const server = new Server(config, logger, imageResizer, db);
 
 server.start();

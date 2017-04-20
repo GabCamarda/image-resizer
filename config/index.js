@@ -4,7 +4,8 @@ const config = {
 
     server: {
         port: 8000,
-        downloadDir: __dirname + '/../resized_images'
+        downloadDir: __dirname + '/../images/original_images',
+        resizeDir: __dirname + '/../images/resized_images'
     },
 
     logger: {

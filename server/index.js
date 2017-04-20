@@ -7,10 +7,11 @@ const urlParser = require('url');
 
 class Server {
 
-    constructor(config, logger, resizer) {
+    constructor(config, logger, resizer, db) {
         this.config = config;
         this.logger = logger;
         this.imageResizer = resizer;
+        this.db = db;
         this.setRoutes();
     }
 
@@ -27,6 +28,9 @@ class Server {
         let resizeWidth = req.query.width ? parseInt(req.query.width) : undefined;
         let resizeHeight = req.query.height ? parseInt(req.query.height) : undefined;
         let url = req.query.url ? urlParser.parse(req.query.url) : undefined;
+        let fileName = urlParser.parse(url).pathname.split('/').pop();
+        let filePath = this.config.server.downloadDir + '/' + fileName;
+        let resizePath = this.config.server.resizeDir + '/' + fileName;
         if(!resizeWidth) {
             res.send('Width parameter must be a valid number');
             this.logger.error('Width parameter not valid');
@@ -38,11 +42,13 @@ class Server {
             return;
         }
 
-        this.download(url)
+        this.download(url, filePath)
             .then(image => {
-                let fileName = urlParser.parse(url).pathname.split('/').pop();
-                let filePath = this.config.server.downloadDir + '/' + fileName;
-                this.imageResizer.resize(image, resizeWidth, resizeHeight, filePath);
+                this.imageResizer.getInfo(image)
+                    .then(metadata => {
+                        //save metadata to redis
+                    });
+                this.imageResizer.resize(image, resizeWidth, resizeHeight, resizePath);
 
                 this.logger.info('File saved successfully');
                 res.send('File saved successfully');
@@ -53,27 +59,25 @@ class Server {
             });
     }
 
-    download(url) {
+    download(url, filePath) {
         return new Promise((resolve, reject) => {
             let request = http.get(url, (res) => {
-                let buffer = [];
-                res.on('data', chunk => {
-                    buffer.push(chunk);
+                let writeStream = fs.createWriteStream(filePath);
+                writeStream.on('finish', () => {
+                    writeStream.close();
+
+                    return resolve(filePath);
                 });
 
-                res.on('end', () => {
-                    let image = Buffer.concat(buffer);
-                    resolve(image);
-                });
-
+                res.pipe(writeStream);
                 res.on('error', (error) => {
-                    this.logger.error(error);
                     res.send('An error occurred. Please try again later');
+                    this.logger.error(error);
                 });
             });
 
             request.on('error', (error) => {
-                reject(error);
+                return reject(error);
             });
         });
     }

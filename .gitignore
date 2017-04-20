@@ -3,3 +3,7 @@
 
 # Dependencies
 node_modules/
+
+# Unnecessary
+images/original_images/*
+images/resized_images/*
