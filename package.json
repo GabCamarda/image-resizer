@@ -4,7 +4,7 @@
   "description": "Web service to resize images on demand. Uses Node.js v6 LTS, Express and Redis for cache",
   "main": "app.js",
   "scripts": {
-    "start": "PORT=8000 NODE_ENV=production node app.js",
+    "start": "NODE_ENV=production node app.js",
     "test": "NODE_ENV=development ./node_modules/.bin/mocha test/**/*.js"
   },
   "author": "Gabriele Camarda <gabrycamarda@gmail.com>",
