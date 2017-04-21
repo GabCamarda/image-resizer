@@ -2,8 +2,7 @@
 
 const mocha = require('mocha');
 const expect = require('expect');
-const sinon = require('sinon');
-const Db = require('../db');
+const Db = require('../../db/index');
 
 describe('Db test case', () => {
     let db = new Db({}, {});

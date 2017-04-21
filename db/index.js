@@ -52,6 +52,14 @@ class Db {
     isConnected() {
         return this.isReady;
     }
+
+    /**
+     * Deletes everything from db - flushdb command
+     * Test use only
+     */
+    clear() {
+        this.redisClient.flushdb();
+    }
 }
 
 module.exports = Db;

@@ -24,6 +24,7 @@ class Server {
         this.app = express();
         this.app.get('/', (req, res) => {
             this.logger.info('client connected');
+            res.sendStatus(200);
         });
         this.app.get('/resize', this.resizeRouteHandler.bind(this));
     }
@@ -38,12 +39,12 @@ class Server {
         let resizeHeight = req.query.height ? parseInt(req.query.height) : undefined;
         let url = req.query.url ? urlParser.parse(req.query.url) : undefined;
         if(!resizeWidth) {
-            res.send('Width parameter must be a valid number');
+            res.status(400).send('Width parameter must be a valid number');
             this.logger.error('Width parameter not valid');
             return;
         }
         if(!url) {
-            res.send('Url parameter must be valid');
+            res.status(400).send('Url parameter must be valid');
             this.logger.error('Url parameter not valid');
             return;
         }
@@ -116,7 +117,7 @@ class Server {
     }
 
     /**
-     * resize pictures and store metadata in db
+     * Resize pictures and store metadata in db
      * @param options
      * @param resizePath
      * @param res
@@ -175,12 +176,19 @@ class Server {
     }
 
     /**
-     * Starts the server
+     * Set up server to listen on the specified port
      */
     start() {
-        this.app.listen(this.config.server.port, () => {
-            console.log('Server started on port ' + this.config.server.port);
+        this.server = this.app.listen(this.config.server.port, () => {
+            this.logger.info('Server started on port ' + this.config.server.port);
         });
+    }
+
+    /**
+     * Closes the server connection
+     */
+    shutdown() {
+        this.server.close();
     }
 
 }

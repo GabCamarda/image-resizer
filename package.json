@@ -4,7 +4,7 @@
   "description": "Web service to resize images on demand. Uses Node.js v6 LTS, Express and Redis for cache",
   "main": "app.js",
   "scripts": {
-    "test": "mocha test/*.js"
+    "test": "./node_modules/.bin/mocha test/**/*.js"
   },
   "author": "Gabriele Camarda <gabrycamarda@gmail.com>",
   "license": "ISC",
@@ -14,8 +14,8 @@
     "sharp": "0.17.3"
   },
   "devDependencies": {
-    "expect": "^1.20.2",
-    "mocha": "^3.2.0",
-    "sinon": "^2.1.0"
+    "expect": "1.20.2",
+    "mocha": "3.2.0",
+    "sinon": "2.1.0"
   }
 }
