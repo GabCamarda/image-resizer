@@ -9,21 +9,33 @@ class ImageResizer {
         this.logger = logger;
     }
 
-    resize(image, width, height, filePath) {
+    /**
+     * Resize pictures maintaining ratio
+     * @param image
+     * @param width
+     * @param height
+     * @param filePath
+     * @param callback
+     */
+    resize(image, width, height, filePath, callback) {
+        let validHeight = height !== '' ? height : undefined;
         sharp(image)
-            .resize(width, height)
+            .resize(width, validHeight)
             .toFile(filePath, (error) => {
                 if(error) {
                     this.logger.error(error);
                 }
+                if(callback) {
+                    callback();
+                }
             });
-            // .then(() => {
-            //     if(callback) {
-            //         callback();
-            //     }
-            // });
     }
 
+    /**
+     * Returns specified image metadata
+     * @param image
+     * @returns {*}
+     */
     getInfo(image) {
         return sharp(image).metadata();
     }

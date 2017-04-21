@@ -10,6 +10,9 @@ class Db {
         this.init();
     }
 
+    /**
+     * Initialise client
+     */
     init() {
         this.redisClient = new redis.createClient();
         this.redisClient.on('connect', () => {
@@ -17,10 +20,20 @@ class Db {
         });
     }
 
+    /**
+     * Redis hmset
+     * @param key
+     * @param args
+     */
     save(key, args) {
         this.redisClient.hmset(key, args);
     }
 
+    /**
+     * Redis hgetall
+     * @param key
+     * @returns {Promise}
+     */
     get(key) {
         return new Promise((resolve, reject) => {
             this.redisClient.hgetall(key, (error, replies) => {
@@ -32,6 +45,10 @@ class Db {
         });
     }
 
+    /**
+     * returns connected flag
+     * @returns {boolean}
+     */
     isConnected() {
         return this.isReady;
     }

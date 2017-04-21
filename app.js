@@ -3,6 +3,7 @@
 const config = require('./config');
 const Server = require('./server');
 const Logger = require('./logger');
+const Db = require('./db');
 const ImageResizer = require('./resizer');
 
 const logger = new Logger(config);
