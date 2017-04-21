@@ -1,17 +1,17 @@
 "use strict";
 
-const config = {
+const devConfig = {
 
     server: {
         port: process.env.PORT || 1337,
-        downloadDir: __dirname + '/../images/original_images',
-        resizeDir: __dirname + '/../images/resized_images'
+        downloadDir: __dirname + '/../test/testImages/original',
+        resizeDir: __dirname + '/../test/testImages/resized'
     },
 
     redis: {
         host: '127.0.0.1',
         port: 6379,
-        dbIndex: 1
+        dbIndex: 5
     },
 
     logger: {
@@ -25,4 +25,4 @@ const config = {
 
 };
 
-module.exports = config;
+module.exports = devConfig;

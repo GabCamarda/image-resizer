@@ -14,7 +14,11 @@ class Db {
      * Initialise client
      */
     init() {
-        this.redisClient = new redis.createClient();
+        this.redisClient = new redis.createClient({
+            host: this.config.redis.host,
+            port: this.config.redis.port,
+            db: this.config.redis.dbIndex
+        });
         this.redisClient.on('connect', () => {
             this.isReady = true;
         });

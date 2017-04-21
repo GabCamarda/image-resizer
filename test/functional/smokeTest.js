@@ -5,7 +5,7 @@ const expect = require('expect');
 const sinon = require('sinon');
 const http = require('http');
 const fs = require('fs');
-const config = require('../../config');
+const config = require('../../config/dev');
 const app = require('../../app');
 const Db = require('../../db');
 
