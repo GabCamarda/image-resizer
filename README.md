@@ -3,7 +3,7 @@ Node.js webservice to resize images
 
 ### Requirements
  - Node.js >= 6.10
- - Redis >= 3.x
+ - Redis >= 3.2.x
 
 ### Usage
 #### Server
@@ -24,7 +24,7 @@ If `height` is not specified, the picture will be resized keeping proportions, u
 
 Example:
 ```javascript
-curl "http://localhost:1337/resize?width=200&heigth=200&url=[PICTURE URL HERE]"
+curl -O "http://localhost:1337/resize?width=200&heigth=200&url=[PICTURE URL HERE]"
 ```
 
 ### Test
