@@ -1,14 +1,21 @@
 ## Image Resizer (Coding Test - UB)
 Node.js webservice to resize images
 
+### Requirements
+ - Node.js >= 6.10
+ - Redis >= 3.x
+
 ### Usage
 #### Server
-Fork, clone or download zip from github, install dependencies with `npm install` and run with `npm start`
-Please check the config files and change values where appropriate to suit your needs. 
+Fork, clone or download zip from Github, install dependencies with `npm install` and run with `npm start`
+Please check the config files in `config/` and change values where appropriate to suit your needs. 
+- `config/dev.js` is used for testing and development
+- `config/index.js` will be used in production
 
-**In particular you might want to change the database index for Redis to avoid conflicts with already present databases.**
+**In particular you might want to change the database index for Redis to avoid conflicts with already present databases you might have.**
 
-You can use the `PORT` environment to change it. It defaults to `1337` 
+The port the server listens to can be changed using `PORT` on the `package.json` or from console. 
+It defaults to `1337`.
 
 #### Client
 Access your host on the port specified (`1337` for default) and hit the endpoint `/resize`.
