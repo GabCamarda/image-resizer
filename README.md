@@ -1,4 +1,4 @@
-## Image Resizer (Coding Test - UB)
+## Image Resizer (Coding Test)
 Node.js webservice to resize images
 
 ### Requirements
